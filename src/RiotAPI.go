@@ -4,11 +4,11 @@ package riotapi
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"io"
 	"net/http"
 	"net/url"
 	"strconv"
-	"errors"
 )
 
 var httpclient http.Client
@@ -27,6 +27,58 @@ func New(key string) *Client {
 	return client
 }
 
+//GetChampionMasteriesBySummoner is a function returns ChampionMasteryDTO.
+func (me *Client) GetChampionMasteriesBySummoner(encryptedSummonerID string) ([]ChampionMasteryDTO, error) {
+	data, networkError := getRequest(me.EndPoint+"/lol/champion-mastery/v4/champion-masteries/by-summoner/", me.Key, encryptedSummonerID)
+	var championMasteryDTO []ChampionMasteryDTO
+	if networkError == nil {
+		if decodeError := json.Unmarshal(data, &championMasteryDTO); decodeError != nil {
+			return championMasteryDTO, decodeError
+		}
+		return championMasteryDTO, nil
+	}
+	return championMasteryDTO, networkError
+}
+
+//GetChampionMasteryScoreBySummoner is a function returns ChampionMasteryDTO.
+func (me *Client) GetChampionMasteryScoreBySummoner(encryptedSummonerID string) (int, error) {
+	data, networkError := getRequest(me.EndPoint+"/lol/champion-mastery/v4/scores/by-summoner/", me.Key, encryptedSummonerID)
+	score, er := strconv.Atoi(string(data))
+	if er != nil {
+		return score, nil
+	}
+	if networkError == nil {
+		return score, nil
+	}
+	return score, networkError
+}
+
+//GetChampionMasteriesBySummonerByChampion is a function returns ChampionMasteryDTO.
+func (me *Client) GetChampionMasteriesBySummonerByChampion(encryptedSummonerID string, championID int) (ChampionMasteryDTO, error) {
+	data, networkError := getRequest(me.EndPoint+"/lol/champion-mastery/v4/champion-masteries/by-summoner/"+encryptedSummonerID+"/by-champion/", me.Key, strconv.Itoa(championID))
+	var championMasteryDTO ChampionMasteryDTO
+	if networkError == nil {
+		if decodeError := json.Unmarshal(data, &championMasteryDTO); decodeError != nil {
+			return championMasteryDTO, decodeError
+		}
+		return championMasteryDTO, nil
+	}
+	return championMasteryDTO, networkError
+}
+
+//GetChampionRotations is a function returns ChampionMasteryDTO.
+func (me *Client) GetChampionRotations() (ChampionInfo, error) {
+	data, networkError := getRequest(me.EndPoint+"/lol/platform/v3/champion-rotations", me.Key, "")
+	var championMasteryDTO ChampionInfo
+	if networkError == nil {
+		if decodeError := json.Unmarshal(data, &championMasteryDTO); decodeError != nil {
+			return championMasteryDTO, decodeError
+		}
+		return championMasteryDTO, nil
+	}
+	return championMasteryDTO, networkError
+}
+
 //GetSummonersByName is a function returns SummonerDTO.
 func (me *Client) GetSummonersByName(SN string) (SummonerDTO, error) {
 	data, networkError := getRequest(me.EndPoint+"/lol/summoner/v4/summoners/by-name/", me.Key, SN)
@@ -37,7 +89,7 @@ func (me *Client) GetSummonersByName(SN string) (SummonerDTO, error) {
 		}
 		return summoner, nil
 	}
-	return summoner, networkError	
+	return summoner, networkError
 }
 
 //GetSummonersByAccount is a funtion returns SummonerDTO
@@ -50,7 +102,7 @@ func (me *Client) GetSummonersByAccount(encryptedAccountID string) (SummonerDTO,
 		}
 		return summoner, nil
 	}
-	return summoner, networkError	
+	return summoner, networkError
 }
 
 //GetSummonersByPUUID is a funtion returns SummonerDTO
@@ -63,7 +115,7 @@ func (me *Client) GetSummonersByPUUID(encryptedPUUID string) (SummonerDTO, error
 		}
 		return summoner, nil
 	}
-	return summoner, networkError	
+	return summoner, networkError
 }
 
 //GetSummoners is a funtion returns SummonerDTO
@@ -76,12 +128,12 @@ func (me *Client) GetSummoners(encryptedSummonerID string) (SummonerDTO, error) 
 		}
 		return summoner, nil
 	}
-	return summoner, networkError	
+	return summoner, networkError
 }
 
 //GetActivegamesBySummoner is a function returns CurrentGameInfo.
 func (me *Client) GetActivegamesBySummoner(encryptedSummonerID string) (CurrentGameInfo, error) {
-	data, networkError := getRequest(me.EndPoint + "/lol/spectator/v4/active-games/by-summoner/", me.Key, encryptedSummonerID)
+	data, networkError := getRequest(me.EndPoint+"/lol/spectator/v4/active-games/by-summoner/", me.Key, encryptedSummonerID)
 	var currentGame CurrentGameInfo
 	if networkError == nil {
 		if decodeError := json.Unmarshal(data, &currentGame); decodeError != nil {
@@ -94,7 +146,7 @@ func (me *Client) GetActivegamesBySummoner(encryptedSummonerID string) (CurrentG
 
 //GetFeaturedGames is a function returns FeaturedGames.
 func (me *Client) GetFeaturedGames(encryptedSummonerID string) (FeaturedGames, error) {
-	data, networkError := getRequest(me.EndPoint + "/lol/spectator/v4/active-games/by-summoner/", me.Key, encryptedSummonerID)
+	data, networkError := getRequest(me.EndPoint+"/lol/spectator/v4/active-games/by-summoner/", me.Key, encryptedSummonerID)
 	var featuredGames FeaturedGames
 	if networkError == nil {
 		if decodeError := json.Unmarshal(data, &featuredGames); decodeError != nil {
@@ -107,7 +159,7 @@ func (me *Client) GetFeaturedGames(encryptedSummonerID string) (FeaturedGames, e
 
 //GetMatches is a function returns MatchDto.
 func (me *Client) GetMatches(gameID int) (MatchDto, error) {
-	data, networkError := getRequest(me.EndPoint + "/lol/match/v4/matches/", me.Key, strconv.Itoa(gameID))
+	data, networkError := getRequest(me.EndPoint+"/lol/match/v4/matches/", me.Key, strconv.Itoa(gameID))
 	var matchDto MatchDto
 	if networkError == nil {
 		if decodeError := json.Unmarshal(data, &matchDto); decodeError != nil {
@@ -120,7 +172,7 @@ func (me *Client) GetMatches(gameID int) (MatchDto, error) {
 
 //GetTimelineByMatch is a function returns MatchDto.
 func (me *Client) GetTimelineByMatch(gameID int) (MatchTimelineDto, error) {
-	data, networkError := getRequest(me.EndPoint + "/lol/match/v4/matches/", me.Key, strconv.Itoa(gameID))
+	data, networkError := getRequest(me.EndPoint+"/lol/match/v4/matches/", me.Key, strconv.Itoa(gameID))
 	var timeline MatchTimelineDto
 	if networkError == nil {
 		if decodeError := json.Unmarshal(data, &timeline); decodeError != nil {
