@@ -1,5 +1,10 @@
 package riotapi
 
+import (
+	"encoding/json"
+	"strconv"
+)
+
 //MatchDto represents match information include teams, participants
 type MatchDto struct {
 	SeasonID              int `json:"seasonId"`
@@ -182,4 +187,222 @@ type MatchDto struct {
 	} `json:"participants"`
 	GameDuration int   `json:"gameDuration"`
 	GameCreation int64 `json:"gameCreation"`
+}
+
+//MatchlistDto represents matchlist for games played on given account ID.
+type MatchlistDto struct {
+	Matches []struct {
+		Lane       string `json:"lane"`
+		GameID     int    `json:"gameId"`
+		Champion   int    `json:"champion"`
+		PlatformID string `json:"platformId"`
+		Timestamp  int64  `json:"timestamp"`
+		Queue      int    `json:"queue"`
+		Role       string `json:"role"`
+		Season     int    `json:"season"`
+	} `json:"matches"`
+	EndIndex   int `json:"endIndex"`
+	StartIndex int `json:"startIndex"`
+	TotalGames int `json:"totalGames"`
+}
+
+//MatchTimelineDto represents matchTimeline per min
+type MatchTimelineDto struct {
+	Frames []struct {
+		Timestamp         int `json:"timestamp"`
+		ParticipantFrames struct {
+			P1 struct {
+				TotalGold     int `json:"totalGold"`
+				TeamScore     int `json:"teamScore"`
+				ParticipantID int `json:"participantId"`
+				Level         int `json:"level"`
+				CurrentGold   int `json:"currentGold"`
+				MinionsKilled int `json:"minionsKilled"`
+				DominionScore int `json:"dominionScore"`
+				Position      struct {
+					Y int `json:"y"`
+					X int `json:"x"`
+				} `json:"position"`
+				Xp                  int `json:"xp"`
+				JungleMinionsKilled int `json:"jungleMinionsKilled"`
+			} `json:"1"`
+			P2 struct {
+				TotalGold     int `json:"totalGold"`
+				TeamScore     int `json:"teamScore"`
+				ParticipantID int `json:"participantId"`
+				Level         int `json:"level"`
+				CurrentGold   int `json:"currentGold"`
+				MinionsKilled int `json:"minionsKilled"`
+				DominionScore int `json:"dominionScore"`
+				Position      struct {
+					Y int `json:"y"`
+					X int `json:"x"`
+				} `json:"position"`
+				Xp                  int `json:"xp"`
+				JungleMinionsKilled int `json:"jungleMinionsKilled"`
+			} `json:"2"`
+			P3 struct {
+				TotalGold     int `json:"totalGold"`
+				TeamScore     int `json:"teamScore"`
+				ParticipantID int `json:"participantId"`
+				Level         int `json:"level"`
+				CurrentGold   int `json:"currentGold"`
+				MinionsKilled int `json:"minionsKilled"`
+				DominionScore int `json:"dominionScore"`
+				Position      struct {
+					Y int `json:"y"`
+					X int `json:"x"`
+				} `json:"position"`
+				Xp                  int `json:"xp"`
+				JungleMinionsKilled int `json:"jungleMinionsKilled"`
+			} `json:"3"`
+			P4 struct {
+				TotalGold     int `json:"totalGold"`
+				TeamScore     int `json:"teamScore"`
+				ParticipantID int `json:"participantId"`
+				Level         int `json:"level"`
+				CurrentGold   int `json:"currentGold"`
+				MinionsKilled int `json:"minionsKilled"`
+				DominionScore int `json:"dominionScore"`
+				Position      struct {
+					Y int `json:"y"`
+					X int `json:"x"`
+				} `json:"position"`
+				Xp                  int `json:"xp"`
+				JungleMinionsKilled int `json:"jungleMinionsKilled"`
+			} `json:"4"`
+			P5 struct {
+				TotalGold     int `json:"totalGold"`
+				TeamScore     int `json:"teamScore"`
+				ParticipantID int `json:"participantId"`
+				Level         int `json:"level"`
+				CurrentGold   int `json:"currentGold"`
+				MinionsKilled int `json:"minionsKilled"`
+				DominionScore int `json:"dominionScore"`
+				Position      struct {
+					Y int `json:"y"`
+					X int `json:"x"`
+				} `json:"position"`
+				Xp                  int `json:"xp"`
+				JungleMinionsKilled int `json:"jungleMinionsKilled"`
+			} `json:"5"`
+			P6 struct {
+				TotalGold     int `json:"totalGold"`
+				TeamScore     int `json:"teamScore"`
+				ParticipantID int `json:"participantId"`
+				Level         int `json:"level"`
+				CurrentGold   int `json:"currentGold"`
+				MinionsKilled int `json:"minionsKilled"`
+				DominionScore int `json:"dominionScore"`
+				Position      struct {
+					Y int `json:"y"`
+					X int `json:"x"`
+				} `json:"position"`
+				Xp                  int `json:"xp"`
+				JungleMinionsKilled int `json:"jungleMinionsKilled"`
+			} `json:"6"`
+			P7 struct {
+				TotalGold     int `json:"totalGold"`
+				TeamScore     int `json:"teamScore"`
+				ParticipantID int `json:"participantId"`
+				Level         int `json:"level"`
+				CurrentGold   int `json:"currentGold"`
+				MinionsKilled int `json:"minionsKilled"`
+				DominionScore int `json:"dominionScore"`
+				Position      struct {
+					Y int `json:"y"`
+					X int `json:"x"`
+				} `json:"position"`
+				Xp                  int `json:"xp"`
+				JungleMinionsKilled int `json:"jungleMinionsKilled"`
+			} `json:"7"`
+			P8 struct {
+				TotalGold     int `json:"totalGold"`
+				TeamScore     int `json:"teamScore"`
+				ParticipantID int `json:"participantId"`
+				Level         int `json:"level"`
+				CurrentGold   int `json:"currentGold"`
+				MinionsKilled int `json:"minionsKilled"`
+				DominionScore int `json:"dominionScore"`
+				Position      struct {
+					Y int `json:"y"`
+					X int `json:"x"`
+				} `json:"position"`
+				Xp                  int `json:"xp"`
+				JungleMinionsKilled int `json:"jungleMinionsKilled"`
+			} `json:"8"`
+			P9 struct {
+				TotalGold     int `json:"totalGold"`
+				TeamScore     int `json:"teamScore"`
+				ParticipantID int `json:"participantId"`
+				Level         int `json:"level"`
+				CurrentGold   int `json:"currentGold"`
+				MinionsKilled int `json:"minionsKilled"`
+				DominionScore int `json:"dominionScore"`
+				Position      struct {
+					Y int `json:"y"`
+					X int `json:"x"`
+				} `json:"position"`
+				Xp                  int `json:"xp"`
+				JungleMinionsKilled int `json:"jungleMinionsKilled"`
+			} `json:"9"`
+			P10 struct {
+				TotalGold     int `json:"totalGold"`
+				TeamScore     int `json:"teamScore"`
+				ParticipantID int `json:"participantId"`
+				Level         int `json:"level"`
+				CurrentGold   int `json:"currentGold"`
+				MinionsKilled int `json:"minionsKilled"`
+				DominionScore int `json:"dominionScore"`
+				Position      struct {
+					Y int `json:"y"`
+					X int `json:"x"`
+				} `json:"position"`
+				Xp                  int `json:"xp"`
+				JungleMinionsKilled int `json:"jungleMinionsKilled"`
+			} `json:"10"`
+		} `json:"participantFrames"`
+		Events []interface{} `json:"events"`
+	} `json:"frames"`
+	FrameInterval int `json:"frameInterval"`
+}
+
+//GetMatches is a function returns MatchDto.
+func (me *Client) GetMatches(gameID int) (MatchDto, error) {
+	data, networkError := getRequest(me.EndPoint+"/lol/match/v4/matches/", me.Key, strconv.Itoa(gameID))
+	var matchDto MatchDto
+	if networkError == nil {
+		if decodeError := json.Unmarshal(data, &matchDto); decodeError != nil {
+			return matchDto, decodeError
+		}
+		return matchDto, nil
+	}
+	return matchDto, networkError
+}
+
+//GetMatchlistByAccountID is a function returns MatchlistDto.
+//TO DO: implement 'Functional Option Pattern'
+func (me *Client) GetMatchlistByAccountID(encryptedAccountID string) (MatchlistDto, error) {
+	data, networkError := getRequest(me.EndPoint+"/lol/match/v4/matchlists/by-account/", me.Key, encryptedAccountID)
+	var matchlistDto MatchlistDto
+	if networkError == nil {
+		if decodeError := json.Unmarshal(data, &matchlistDto); decodeError != nil {
+			return matchlistDto, decodeError
+		}
+		return matchlistDto, nil
+	}
+	return matchlistDto, networkError
+}
+
+//GetTimelineByMatch is a function returns MatchTimelineDto.
+func (me *Client) GetTimelineByMatch(gameID int) (MatchTimelineDto, error) {
+	data, networkError := getRequest(me.EndPoint+"/lol/match/v4/timelines/by-match/", me.Key, strconv.Itoa(gameID))
+	var timeline MatchTimelineDto
+	if networkError == nil {
+		if decodeError := json.Unmarshal(data, &timeline); decodeError != nil {
+			return timeline, decodeError
+		}
+		return timeline, nil
+	}
+	return timeline, networkError
 }
