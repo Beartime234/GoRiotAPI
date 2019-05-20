@@ -9,12 +9,12 @@ In your shell
 `import riotapi "github.com/themilkey/RiotAPI4G/src"`    
 
 ## How to use
-```go:main
+```go
 client := riotapi.New("YOUR_API_KEY")
 summoner, err := client.GetSummonersByName("summonerName")
 if err == nil {
-  fmt.Println(summoner.ID)
+  Println(summoner.ID)
 } else {
-  fmt.Println(err)
+  Println(err)
 }
 ```
