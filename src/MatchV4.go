@@ -58,8 +58,8 @@ type MatchDto struct {
 				One020 float64 `json:"10-20"`
 			} `json:"goldPerMinDeltas"`
 			CreepsPerMinDeltas struct {
-				Two030 int     `json:"20-30"`
-				Zero10 int     `json:"0-10"`
+				Two030 float64 `json:"20-30"`
+				Zero10 float64 `json:"0-10"`
 				One020 float64 `json:"10-20"`
 			} `json:"creepsPerMinDeltas"`
 			XpPerMinDeltas struct {
@@ -71,7 +71,7 @@ type MatchDto struct {
 			DamageTakenPerMinDeltas struct {
 				Two030 float64 `json:"20-30"`
 				Zero10 float64 `json:"0-10"`
-				One020 int     `json:"10-20"`
+				One020 float64 `json:"10-20"`
 			} `json:"damageTakenPerMinDeltas"`
 		} `json:"timeline,omitempty"`
 		Spell2ID int `json:"spell2Id"`
@@ -405,4 +405,17 @@ func (me *Client) GetTimelineByMatch(gameID int) (MatchTimelineDto, error) {
 		return timeline, nil
 	}
 	return timeline, networkError
+}
+
+//GetMatchesByTournamentCode gets match IDs by tournament code.
+func (me *Client) GetMatchesByTournamentCode(matchID int, TournamentCode string) (MatchDto, error) {
+	data, networkError := getRequest(me.EndPoint+"/lol/match/v4/matches/"+strconv.Itoa(matchID)+"/by-tournament-code/", me.Key, TournamentCode)
+	var matchDto MatchDto
+	if networkError == nil {
+		if decodeError := json.Unmarshal(data, &matchDto); decodeError != nil {
+			return matchDto, decodeError
+		}
+		return matchDto, nil
+	}
+	return matchDto, networkError
 }
