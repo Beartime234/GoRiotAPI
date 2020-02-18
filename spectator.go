@@ -68,9 +68,9 @@ type FeaturedGames struct {
 	} `json:"gameList"`
 }
 
-//GetActivegamesBySummoner is a function returns CurrentGameInfo.
-func (me *Client) GetActivegamesBySummoner(encryptedSummonerID string) (CurrentGameInfo, error) {
-	data, networkError := getRequest(me.EndPoint+"/lol/spectator/v4/active-games/by-summoner/", me.Key, encryptedSummonerID)
+//GetActiveGameBySummoner is a function returns CurrentGameInfo.
+func (c *Client) GetActiveGameBySummoner(encryptedSummonerID string) (CurrentGameInfo, error) {
+	data, networkError := getRequest(c.EndPoint+"/lol/spectator/v4/active-games/by-summoner/", c.Key, encryptedSummonerID)
 	var currentGame CurrentGameInfo
 	if networkError == nil {
 		if decodeError := json.Unmarshal(data, &currentGame); decodeError != nil {
@@ -82,8 +82,8 @@ func (me *Client) GetActivegamesBySummoner(encryptedSummonerID string) (CurrentG
 }
 
 //GetFeaturedGames is a function returns FeaturedGames.
-func (me *Client) GetFeaturedGames(encryptedSummonerID string) (FeaturedGames, error) {
-	data, networkError := getRequest(me.EndPoint+"/lol/spectator/v4/active-games/by-summoner/", me.Key, encryptedSummonerID)
+func (c *Client) GetFeaturedGames(encryptedSummonerID string) (FeaturedGames, error) {
+	data, networkError := getRequest(c.EndPoint+"/lol/spectator/v4/active-games/by-summoner/", c.Key, encryptedSummonerID)
 	var featuredGames FeaturedGames
 	if networkError == nil {
 		if decodeError := json.Unmarshal(data, &featuredGames); decodeError != nil {

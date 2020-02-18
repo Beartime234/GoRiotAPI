@@ -12,8 +12,8 @@ type ChampionInfo struct {
 }
 
 //GetChampionRotations is a function returns ChampionMasteryDTO.
-func (me *Client) GetChampionRotations() (ChampionInfo, error) {
-	data, networkError := getRequest(me.EndPoint+"/lol/platform/v3/champion-rotations", me.Key, "")
+func (c *Client) GetChampionRotations() (ChampionInfo, error) {
+	data, networkError := getRequest(c.EndPoint+"/lol/platform/v3/champion-rotations", c.Key, "")
 	var championMasteryDTO ChampionInfo
 	if networkError == nil {
 		if decodeError := json.Unmarshal(data, &championMasteryDTO); decodeError != nil {

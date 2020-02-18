@@ -16,8 +16,8 @@ type SummonerDTO struct {
 }
 
 //GetSummonersByName is a function returns SummonerDTO.
-func (me *Client) GetSummonersByName(SN string) (SummonerDTO, error) {
-	data, networkError := getRequest(me.EndPoint+"/lol/summoner/v4/summoners/by-name/", me.Key, SN)
+func (c *Client) GetSummonersByName(SN string) (SummonerDTO, error) {
+	data, networkError := getRequest(c.EndPoint+"/lol/summoner/v4/summoners/by-name/", c.Key, SN)
 	var summoner SummonerDTO
 	if networkError == nil {
 		if decodeError := json.Unmarshal(data, &summoner); decodeError != nil {
@@ -28,9 +28,9 @@ func (me *Client) GetSummonersByName(SN string) (SummonerDTO, error) {
 	return summoner, networkError
 }
 
-//GetSummonersByAccount is a funtion returns SummonerDTO
-func (me *Client) GetSummonersByAccount(encryptedAccountID string) (SummonerDTO, error) {
-	data, networkError := getRequest(me.EndPoint+"/lol/summoner/v4/summoners/by-account/", me.Key, encryptedAccountID)
+//GetSummonersByAccount is a function returns SummonerDTO
+func (c *Client) GetSummonersByAccount(encryptedAccountID string) (SummonerDTO, error) {
+	data, networkError := getRequest(c.EndPoint+"/lol/summoner/v4/summoners/by-account/", c.Key, encryptedAccountID)
 	var summoner SummonerDTO
 	if networkError == nil {
 		if decodeError := json.Unmarshal(data, &summoner); decodeError != nil {
@@ -41,9 +41,9 @@ func (me *Client) GetSummonersByAccount(encryptedAccountID string) (SummonerDTO,
 	return summoner, networkError
 }
 
-//GetSummonersByPUUID is a funtion returns SummonerDTO
-func (me *Client) GetSummonersByPUUID(encryptedPUUID string) (SummonerDTO, error) {
-	data, networkError := getRequest(me.EndPoint+"/lol/summoner/v4/summoners/by-puuid/", me.Key, encryptedPUUID)
+//GetSummonersByPUUID is a function returns SummonerDTO
+func (c *Client) GetSummonersByPUUID(encryptedPUUID string) (SummonerDTO, error) {
+	data, networkError := getRequest(c.EndPoint+"/lol/summoner/v4/summoners/by-puuid/", c.Key, encryptedPUUID)
 	var summoner SummonerDTO
 	if networkError == nil {
 		if decodeError := json.Unmarshal(data, &summoner); decodeError != nil {
@@ -54,9 +54,9 @@ func (me *Client) GetSummonersByPUUID(encryptedPUUID string) (SummonerDTO, error
 	return summoner, networkError
 }
 
-//GetSummoners is a funtion returns SummonerDTO
-func (me *Client) GetSummoners(encryptedSummonerID string) (SummonerDTO, error) {
-	data, networkError := getRequest(me.EndPoint+"/lol/summoner/v4/summoners/", me.Key, encryptedSummonerID)
+//GetSummoners is a function returns SummonerDTO
+func (c *Client) GetSummoners(encryptedSummonerID string) (SummonerDTO, error) {
+	data, networkError := getRequest(c.EndPoint+"/lol/summoner/v4/summoners/", c.Key, encryptedSummonerID)
 	var summoner SummonerDTO
 	if networkError == nil {
 		if decodeError := json.Unmarshal(data, &summoner); decodeError != nil {

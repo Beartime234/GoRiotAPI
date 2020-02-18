@@ -12,9 +12,9 @@ type ProviderRegistrationParameters struct {
 }
 
 // PostTournamentProviders is
-func (me *Client) PostTournamentProviders(provider ProviderRegistrationParameters) (uint64, error) {
+func (c *Client) PostTournamentProviders(provider ProviderRegistrationParameters) (uint64, error) {
 	json, _ := json.Marshal(provider)
-	data, networkError := postRequestWithBody(me.EndPoint+"/lol/tournament/v4/providers", me.Key, json)
+	data, networkError := postRequestWithBody(c.EndPoint+"/lol/tournament/v4/providers", c.Key, json)
 	if networkError == nil {
 		return binary.BigEndian.Uint64(data), nil
 	}

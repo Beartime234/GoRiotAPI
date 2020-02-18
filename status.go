@@ -20,8 +20,8 @@ type ShardStatus struct {
 }
 
 //GetStatusShardData is a function returns ShardStatus.
-func (me *Client) GetStatusShardData() (ShardStatus, error) {
-	data, networkError := getRequest(me.EndPoint+"/lol/status/v3/shard-data", me.Key, "")
+func (c *Client) GetStatusShardData() (ShardStatus, error) {
+	data, networkError := getRequest(c.EndPoint+"/lol/status/v3/shard-data", c.Key, "")
 	var shardStatus ShardStatus
 	if networkError == nil {
 		if decodeError := json.Unmarshal(data, &shardStatus); decodeError != nil {

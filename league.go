@@ -42,8 +42,8 @@ type LeagueEntryDTO struct {
 }
 
 //GetChallengerLeaguesByQueue is a function returns CurrentGameInfo.
-func (me *Client) GetChallengerLeaguesByQueue(q QueueType) (LeagueListDTO, error) {
-	data, networkError := getRequest(me.EndPoint+"/lol/league/v4/challengerleagues/by-queue/", me.Key, q.String())
+func (c *Client) GetChallengerLeaguesByQueue(q QueueType) (LeagueListDTO, error) {
+	data, networkError := getRequest(c.EndPoint+"/lol/league/v4/challengerleagues/by-queue/", c.Key, q.String())
 	var leagueListDTO LeagueListDTO
 	if networkError == nil {
 		if decodeError := json.Unmarshal(data, &leagueListDTO); decodeError != nil {
@@ -55,8 +55,8 @@ func (me *Client) GetChallengerLeaguesByQueue(q QueueType) (LeagueListDTO, error
 }
 
 //GetGrandmasterLeaguesByQueue is a function returns CurrentGameInfo.
-func (me *Client) GetGrandmasterLeaguesByQueue(q QueueType) (LeagueListDTO, error) {
-	data, networkError := getRequest(me.EndPoint+"/lol/league/v4/grandmasterleagues/by-queue/", me.Key, q.String())
+func (c *Client) GetGrandmasterLeaguesByQueue(q QueueType) (LeagueListDTO, error) {
+	data, networkError := getRequest(c.EndPoint+"/lol/league/v4/grandmasterleagues/by-queue/", c.Key, q.String())
 	var leagueListDTO LeagueListDTO
 	if networkError == nil {
 		if decodeError := json.Unmarshal(data, &leagueListDTO); decodeError != nil {
@@ -68,8 +68,8 @@ func (me *Client) GetGrandmasterLeaguesByQueue(q QueueType) (LeagueListDTO, erro
 }
 
 //GetMasterLeaguesByQueue is a function returns CurrentGameInfo.
-func (me *Client) GetMasterLeaguesByQueue(q QueueType) (LeagueListDTO, error) {
-	data, networkError := getRequest(me.EndPoint+"/lol/league/v4/masterleagues/by-queue/", me.Key, q.String())
+func (c *Client) GetMasterLeaguesByQueue(q QueueType) (LeagueListDTO, error) {
+	data, networkError := getRequest(c.EndPoint+"/lol/league/v4/masterleagues/by-queue/", c.Key, q.String())
 	var leagueListDTO LeagueListDTO
 	if networkError == nil {
 		if decodeError := json.Unmarshal(data, &leagueListDTO); decodeError != nil {
@@ -82,8 +82,8 @@ func (me *Client) GetMasterLeaguesByQueue(q QueueType) (LeagueListDTO, error) {
 
 //GetLeaguesByQueue is a function returns CurrentGameInfo.
 //TO DO: Optional
-func (me *Client) GetLeaguesByQueue(q QueueType, tier Tier, division int) ([]LeagueEntryDTO, error) {
-	data, networkError := getRequest(me.EndPoint+"/lol/league/v4/entries/" + q.String() + "/" + tier.String() + "/" + toRoma(division), me.Key, "")
+func (c *Client) GetLeaguesByQueue(q QueueType, tier Tier, division int) ([]LeagueEntryDTO, error) {
+	data, networkError := getRequest(c.EndPoint+"/lol/league/v4/entries/" + q.String() + "/" + tier.String() + "/" + toRoma(division), c.Key, "")
 	var leagueEntryDTO []LeagueEntryDTO
 	if networkError == nil {
 		if decodeError := json.Unmarshal(data, &leagueEntryDTO); decodeError != nil {
@@ -110,8 +110,8 @@ func toRoma(division int) string {
 }
 
 //GetLeaguesByLeagueID is a function returns CurrentGameInfo.
-func (me *Client) GetLeaguesByLeagueID(leagueID string) (LeagueListDTO, error) {
-	data, networkError := getRequest(me.EndPoint+"/lol/league/v4/leagues/", me.Key, leagueID)
+func (c *Client) GetLeaguesByLeagueID(leagueID string) (LeagueListDTO, error) {
+	data, networkError := getRequest(c.EndPoint+"/lol/league/v4/leagues/", c.Key, leagueID)
 	var leagueListDTO LeagueListDTO
 	if networkError == nil {
 		if decodeError := json.Unmarshal(data, &leagueListDTO); decodeError != nil {
@@ -123,8 +123,8 @@ func (me *Client) GetLeaguesByLeagueID(leagueID string) (LeagueListDTO, error) {
 }
 
 //GetEntriesbySummoner is a function returns league entries in all queues for a given summoner ID.
-func (me *Client) GetEntriesbySummoner(encryptedSummonerID string) ([]LeagueEntryDTO, error) {
-	data, networkError := getRequest(me.EndPoint+"/lol/league/v4/entries/by-summoner/", me.Key, encryptedSummonerID)
+func (c *Client) GetEntriesbySummoner(encryptedSummonerID string) ([]LeagueEntryDTO, error) {
+	data, networkError := getRequest(c.EndPoint+"/lol/league/v4/entries/by-summoner/", c.Key, encryptedSummonerID)
 	var leagueEntryDTO []LeagueEntryDTO
 	if networkError == nil {
 		if decodeError := json.Unmarshal(data, &leagueEntryDTO); decodeError != nil {

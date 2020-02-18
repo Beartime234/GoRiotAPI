@@ -241,8 +241,8 @@ type MatchTimelineDto struct {
 }
 
 //GetMatches is a function returns MatchDto.
-func (me *Client) GetMatches(gameID int) (MatchDto, error) {
-	data, networkError := getRequest(me.EndPoint+"/lol/match/v4/matches/", me.Key, strconv.Itoa(gameID))
+func (c *Client) GetMatches(gameID int) (MatchDto, error) {
+	data, networkError := getRequest(c.EndPoint+"/lol/match/v4/matches/", c.Key, strconv.Itoa(gameID))
 	var matchDto MatchDto
 	if networkError == nil {
 		if decodeError := json.Unmarshal(data, &matchDto); decodeError != nil {
@@ -254,8 +254,8 @@ func (me *Client) GetMatches(gameID int) (MatchDto, error) {
 }
 
 //GetGameIDByTournamentCode is a function returns MatchDto.
-func (me *Client) GetGameIDByTournamentCode(TournamentCode string) ([]int, error) {
-	data, networkError := getRequest(me.EndPoint+"/lol/match/v4/matches/by-tournament-code/"+TournamentCode+"/ids", me.Key, "")
+func (c *Client) GetGameIDByTournamentCode(TournamentCode string) ([]int, error) {
+	data, networkError := getRequest(c.EndPoint+"/lol/match/v4/matches/by-tournament-code/"+TournamentCode+"/ids", c.Key, "")
 	var matchlistDto []int
 	if networkError == nil {
 		if decodeError := json.Unmarshal(data, &matchlistDto); decodeError != nil {
@@ -268,8 +268,8 @@ func (me *Client) GetGameIDByTournamentCode(TournamentCode string) ([]int, error
 
 //GetMatchlistByAccountID is a function returns MatchlistDto.
 //TO DO: implement 'Functional Option Pattern'
-func (me *Client) GetMatchlistByAccountID(encryptedAccountID string) (MatchlistDto, error) {
-	data, networkError := getRequest(me.EndPoint+"/lol/match/v4/matchlists/by-account/", me.Key, encryptedAccountID)
+func (c *Client) GetMatchlistByAccountID(encryptedAccountID string) (MatchlistDto, error) {
+	data, networkError := getRequest(c.EndPoint+"/lol/match/v4/matchlists/by-account/", c.Key, encryptedAccountID)
 	var matchlistDto MatchlistDto
 	if networkError == nil {
 		if decodeError := json.Unmarshal(data, &matchlistDto); decodeError != nil {
@@ -281,8 +281,8 @@ func (me *Client) GetMatchlistByAccountID(encryptedAccountID string) (MatchlistD
 }
 
 //GetTimelineByMatch is a function returns MatchTimelineDto.
-func (me *Client) GetTimelineByMatch(gameID int) (MatchTimelineDto, error) {
-	data, networkError := getRequest(me.EndPoint+"/lol/match/v4/timelines/by-match/", me.Key, strconv.Itoa(gameID))
+func (c *Client) GetTimelineByMatch(gameID int) (MatchTimelineDto, error) {
+	data, networkError := getRequest(c.EndPoint+"/lol/match/v4/timelines/by-match/", c.Key, strconv.Itoa(gameID))
 	var timeline MatchTimelineDto
 	if networkError == nil {
 		if decodeError := json.Unmarshal(data, &timeline); decodeError != nil {
@@ -294,8 +294,8 @@ func (me *Client) GetTimelineByMatch(gameID int) (MatchTimelineDto, error) {
 }
 
 //GetMatchesByTournamentCode gets match IDs by tournament code.
-func (me *Client) GetMatchesByTournamentCode(matchID int, TournamentCode string) (MatchDto, error) {
-	data, networkError := getRequest(me.EndPoint+"/lol/match/v4/matches/"+strconv.Itoa(matchID)+"/by-tournament-code/", me.Key, TournamentCode)
+func (c *Client) GetMatchesByTournamentCode(matchID int, TournamentCode string) (MatchDto, error) {
+	data, networkError := getRequest(c.EndPoint+"/lol/match/v4/matches/"+strconv.Itoa(matchID)+"/by-tournament-code/", c.Key, TournamentCode)
 	var matchDto MatchDto
 	if networkError == nil {
 		if decodeError := json.Unmarshal(data, &matchDto); decodeError != nil {

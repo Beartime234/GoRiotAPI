@@ -82,12 +82,12 @@ func (q Tier) String() string {
 type Client struct {
 	EndPoint string
 	Key      string
-	ApiRegion string
+	Region   string
 }
 
 //Constructs the client
 func New(key string, region string) *Client {
-	client = &Client{EndPoint: fmt.Sprintf("https://%s.api.riotgames.com", region), Key: key, ApiRegion:region}
+	client = &Client{EndPoint: fmt.Sprintf("https://%s.api.riotgames.com", region), Key: key, Region:region}
 	return client
 }
 
