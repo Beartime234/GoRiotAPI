@@ -1,4 +1,4 @@
-package riotapi
+package goriot
 
 import (
 	"encoding/json"

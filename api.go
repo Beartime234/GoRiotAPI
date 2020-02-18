@@ -1,5 +1,5 @@
 //Package riotapi is wrapper for RiotAPI
-package riotapi
+package goriot
 
 import (
 	"bytes"
@@ -82,11 +82,12 @@ func (q Tier) String() string {
 type Client struct {
 	EndPoint string
 	Key      string
+	ApiRegion string
 }
 
-//New is constructor
-func New(key string) *Client {
-	client = &Client{EndPoint: "https://jp1.api.riotgames.com", Key: key}
+//Constructs the client
+func New(key string, region string) *Client {
+	client = &Client{EndPoint: fmt.Sprintf("https://%s.api.riotgames.com", region), Key: key, ApiRegion:region}
 	return client
 }
 

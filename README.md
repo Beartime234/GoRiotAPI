@@ -1,12 +1,7 @@
 # RiotAPI4G
-RiotAPI wrapper for golang
+RiotAPI wrapper for golang initially forked from https://github.com/themilkey/RiotAPI4G
 
-## Installation 
-In your shell  
-`$go get -u github.com/themilkey/RiotAPI4G/src` 
-
-## How to import
-`import riotapi "github.com/themilkey/RiotAPI4G/src"`    
+This supports the 4th Generation commands. 
 
 ## How to use
 ```go
